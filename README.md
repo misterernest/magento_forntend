@@ -231,4 +231,56 @@ En tu tema, tu puedes configurar las propiedades de los productos en el MAGENTO 
 Aquí declaramos el ancho y el alto de la imagen de producto.
 El id y el tipo especifica el tipo de imagen que sus reglas seran aplicadas.
 
-## Creando 
+## Creando archivos estaticos
+
+los archivos estaticos seran almacenados en `app/design/frontend/<Vendor>/<theme>/web/`
+* web/
+    * css/
+        * source/
+    * fonts/
+    * images/
+    * js/
+
+Con esta simple estructura, puedes administrar todos los archivos estaticos.
+
+### Creando un tema logo
+
+Por defecto en Magento 2.0 el tema logo es siempre reorganizado por el sistema con el nombre logo.svg. Magento 2.0 tambien reorganiza el directorio por defecto del logo como `<Magento root directory>/app/design/frontend/<Vendor>/<tema>/web/images/logo.svg`
+
+
+Para cambiar el nombre del logo se debe crear el siguiente archivo: 
+`<Magento root directory>/app/design/frontend/<Vendor>/<tema>/web/Magento_Theme/layout/default.xml`
+
+y el codigo seria como esto:
+
+```xml
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:n
+oNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/
+page_configuration.xsd">
+    <body>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_file" xsi:type="string">
+                Magento_Theme/images/logo.png
+                </argument>
+                <argument name="logo_img_width" xsi:type="number">
+                your_logo_width
+                </argument>
+                <argument name="logo_img_height" xsi:type="number">
+                your_logo_height
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
+```
+
+Aquí se maneja nombre de archivo, ancho y alto.
+
+Aquí hay algo importante que es el nombre del logo, hay que tener presente que el nombre esta bien, ya que magento procesa los archivos estaticos en el directorio `pub/statics`. Esto ocurre porque los archivos estaticos pueden ser cacheados por magento, y el directorio correcto es pub.
+
+Activando el tema es en la siguiente ruta:
+
+***Content | Configuration | Global***
+
+Design theme
